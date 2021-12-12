@@ -1,0 +1,35 @@
+plugins {
+	id "java"
+	id "org.springframework.boot"
+	id "io.spring.dependency-management"
+}
+
+group = "${project_group}" as Object
+version = "${project_version}" as Object
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	compileOnly "org.projectlombok:lombok"
+	annotationProcessor "org.projectlombok:lombok"
+	implementation "javax.validation:validation-api"
+	implementation "org.springframework.boot:spring-boot-starter-web"
+	testImplementation "org.springframework.boot:spring-boot-starter-test"
+	testImplementation "junit:junit:${junit_version}"
+}
+
+test {
+	useJUnitPlatform {
+		if (project.hasProperty("${test_tag}")) {
+			includeTags "${project.findProperty(test_tag)}"
+		}
+	}
+}
