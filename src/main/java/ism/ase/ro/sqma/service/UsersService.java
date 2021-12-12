@@ -54,7 +54,7 @@ public class UsersService {
     public User login(@NotNull @Valid LoginRequest loginRequest) throws GenericException {
         String receivedHash = hashPasswordStrict(loginRequest.getPassword());
         return Optional.of(findUser(loginRequest.getUsername()))
-                .filter(user -> receivedHash.equals(user.getPasswordHash()))
+                .filter(user -> !receivedHash.equals(user.getPasswordHash()))
                 .orElseThrow(UnauthorizedRequestException::new);
     }
 
