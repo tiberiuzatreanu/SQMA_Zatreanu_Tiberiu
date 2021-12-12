@@ -31,5 +31,8 @@ test {
 		if (project.hasProperty("${test_tag}")) {
 			includeTags "${project.findProperty(test_tag)}"
 		}
+		testLogging {
+			events 'FAILED', 'SKIPPED', 'PASSED'
+		}
 	}
 }
